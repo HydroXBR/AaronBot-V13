@@ -2,7 +2,7 @@ const { MessageEmbed, MessageButton, MessageActionRow, Permissions, PermissionOv
 const db = require('quick.db');
 
 exports.int = async(client, interaction) => {
-	if(!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({content: `Ops! Você precisa ser um **Administrador** para usar este comando!`, ephemeral: true});
+if(!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({content: `Ops! Você precisa ser um **Administrador** para usar este comando!`, ephemeral: true});
 	const action = interaction.options["_hoistedOptions"][0].value;
 	const member = interaction.options.getMember("user");
 	const authorId = interaction.user.id;
