@@ -2,7 +2,7 @@ const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const youtubesearchapi = require("youtube-search-api");
 
 exports.int = async(client, interaction) => {
-	const link = interaction.options['_hoistedOptions'][0].value;
+  const link = interaction.options['_hoistedOptions'][0].value;
   if(/https?/gmi.test(link) && /youtube/gmi.test(link)){
     let linkbaixar = link.replace("youtube.com", "youtubex2.com");
 
