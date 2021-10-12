@@ -1,7 +1,7 @@
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 exports.int = async(client, interaction) => {
-	const author = interaction.user.id;
+  const author = interaction.user.id;
   const user = interaction.options['_hoistedOptions'][0] ? interaction.options['_hoistedOptions'][0].value : interaction.user.id;
   const user1 = user == author ? author : user;
   const avatarUrl = client.users.cache.get(user1).avatar;
