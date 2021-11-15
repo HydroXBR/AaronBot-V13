@@ -25,9 +25,9 @@ app.use(express.static('public'));
 app.listen(3000, () => {});
 
 app.get("/", (request, response) => {
-    let ping = new Date()
-    ping.setHours(ping.getHours() - 3)
-    let addZero = num => num < 10 && `0${num}` || num;
+    var ping = new Date();
+    ping.setHours(ping.getHours() - 3);
+    var addZero = num => num < 10 && `0${num}` || num;
     console.info(`Bot online - Ping recebido às ${addZero(ping.getUTCHours())}:${addZero(ping.getUTCMinutes())}:${addZero(ping.getUTCSeconds())}`);
     response.sendStatus(200);
 });
