@@ -1,12 +1,20 @@
 const { MessageEmbed, Permissions } = require('discord.js'),
-	db = require('quick.db');
+	db = require('quick.db'),
+	ids = db.get('idsnormal'),
+	idstech = db.get('idstech');
 
 exports.int = async(client, interaction) => {
+	await interaction.deferReply();
   const options = interaction.options['_hoistedOptions'];
   const channelc = client.channels.cache.get("853491913193029682");
   const canal = interaction.options['_hoistedOptions'][0].value;
   const type = interaction.options['_hoistedOptions'][1].value;
 	const logs = client.channels.cache.get('902812808520036402');
+	const toBRL = value => Number(value).toLocaleString("pt-BR", {style: "currency", currency: "BRL"});
+	let embedder = embed => interaction.editReply({ embeds: [embed.toJSON()] });
+	let messager = msg => interaction.editReply({ content: msg });
+	let messagerEphemeral = msg => interaction.editReply({ content: msg, ephemeral: true });
+	let err = e => messagerEphemeral("Ops, me desculpe! Não consegui executar o comando. Por favor, tente novamente mais tarde.");
 
 	function spliceElement(array, element){
 		const index = array.indexOf(element);
@@ -16,7 +24,7 @@ exports.int = async(client, interaction) => {
 		return array;
 	};
 
-	if(!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({content: `Ops! Você precisa ser um **Administrador** para usar este comando!`, ephemeral: true});
+	if(!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.editReply({content: `Ops! Você precisa ser um **Administrador** para usar este comando!`, ephemeral: true});
 
 	if(type == 'off'){
 		if(ids.includes(canal)){
@@ -40,13 +48,15 @@ exports.int = async(client, interaction) => {
     	.addField("Tipo de notícias", type);
 
 		if(type == 'normal'){
+			if(ids.includes(canal)) return messagerEphemeral('Este canal já foi adicionado! Tente novamente se remover ele, usando \`/addnews #canal off\`');
 			db.push(`idsnormal`, canal);
 		}else{
+			if(idstech.includes(canal)) return messagerEphemeral('Este canal já foi adicionado! Tente novamente se remover ele, usando \`/addnews #canal off\`');
 			db.push(`idstech`, canal);
 		};
 
   	logs.send({ embeds: [addnewsEmbed.toJSON()] });
 	};
 
-  interaction.reply(`Ok, ${interaction.user.username}! Sua solicitação foi recebida com sucesso! Em breve irei enviar notícias no canal solicitado! :wink:`);
+  interaction.editReply(`Ok, ${interaction.user.username}! Sua solicitação foi recebida com sucesso! Em breve irei enviar notícias no canal solicitado! :wink:`);
 };
