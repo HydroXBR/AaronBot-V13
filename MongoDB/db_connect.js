@@ -1,7 +1,7 @@
 const { connect } = require("mongoose");
 
 module.exports = () => {
-    connect('LINK', {
+    connect('mongodb+srv://psy1518:<aaron5209#>@cluster0.w4fuw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }).then(() => {
